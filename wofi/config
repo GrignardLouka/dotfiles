@@ -1,0 +1,12 @@
+# layout
+columns=2
+lines=12
+padding:5
+allow_images=true
+image_size=64
+content_halign=right
+
+# settings
+insensitive=true
+mode=drun
+matching=fuzzy
