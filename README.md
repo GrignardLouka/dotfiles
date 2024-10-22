@@ -1,16 +1,12 @@
-## H this git contains every important config in .config.
+# H this git contains every important config in .config.
 
-### Other files that are important but not in this repo:
+# Other files that are important but not in this repo:
 
 - .bashrc:
 
-#
+## ~/.bashrc
 
-# ~/.bashrc
-
-#
-
-# If not running interactively, don't do anything
+\# If not running interactively, don't do anything
 
 [[$- != *i*]] && return
 
@@ -33,15 +29,15 @@ alias nt="NVIM_APPNAME=nvim_latex nvim"
 
 nv() {
 
-# Assumes all configs exist in directories named ~/.config/nvim-\*
+\# Assumes all configs exist in directories named ~/.config/nvim-\*
 
 local config=$(find ~/.config -maxdepth 1 -name 'nvim\*'| fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
 
-# If I exit fzf without selecting a config, don't open Neovim
+\# If I exit fzf without selecting a config, don't open Neovim
 
 [[-z $config]] && echo "No config selected" && return
 
-# Open Neovim with the selected config
+\# Open Neovim with the selected config
 
 NVIM_APPNAME=$(basename $config) nvim $@
 }
@@ -54,3 +50,13 @@ export PROMPT_COMMAND='history -a'
 neofetch
 
 eval "$(zoxide init bash)"
+
+## ~/.bash_profile
+
+sway --unsupported-gpu
+
+## /usr/share/X11/xkb/sybols/custom
+
+## wherever pacman config is
+
+## ...
