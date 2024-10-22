@@ -1,0 +1,219 @@
+### GENERAL
+font Liberation Mono 10
+default_border pixel 1
+default_floating_border normal 1
+client.focused #4c7899 #285577 #ffffff #2e9ef4 #01fd1b
+gaps inner 10
+
+### VARIABLES
+set $mod Mod4
+set $left m
+set $down j
+set $up k
+set $right w
+set $term foot
+set $background ~/.config/sway/wallpapers/background.jpg
+set $background_lockscreen ~/.config/sway/wallpapers/background_lockscreen.jpg
+
+### OUTPUTS
+# monitors
+
+# TEACHING WITH BEAMER
+# output eDP-1 pos 0 1080 res 1920x1080
+# output HDMI-A-1 pos 0 0 res 1280x800
+
+# DEFAULT CONFIG
+output eDP-1 pos 0 1440 res 1920x1080
+output HDMI-A-1 pos 0 0 res 2560x1440
+
+
+# INCASE OF DUPLICATE, UNCOMMENT THE LINES BELOW
+# output HDMI-A-1 pos 0 0 res 1920x1080
+# output eDP-1 pos 0 0 res 1920x1080
+
+# lock workspaces to monitors
+workspace 1 output eDP-1
+workspace 2 output HDMI-A-1
+workspace 8 output HDMI-A-1
+workspace 9 output HDMI-A-1
+workspace 10 output HDMI-A-1
+
+mode "present" {
+    # command starts mirroring
+    bindsym m mode "default"; exec wl-present mirror
+#include "dwm.h"
+    # these commands modify an already running mirroring window
+    bindsym o mode "default"; exec wl-present set-output
+    bindsym r mode "default"; exec wl-present set-region
+    bindsym Shift+r mode "default"; exec wl-present unset-region
+    bindsym s mode "default"; exec wl-present set-scaling
+    bindsym p mode "default"; exec wl-present toggle-freeze
+    bindsym f mode "default"; exec wl-present fullscreen
+    bindsym c mode "default"; exec wl-present custom
+
+    # return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+shift+p mode "present"
+
+### INPUTS (swaymsg -t get_inputs, man 5 sway_input)
+# Laptop Keyboard
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout be
+    xkb_numlock enable
+    repeat_rate 75
+    repeat_delay 250
+}
+# glove80
+input "5824:10203:MoErgo_Glove80_Left_Keyboard" {
+    xkb_layout custom
+    xkb_numlock enable
+    xkb_variant dvp
+    repeat_rate  75
+    repeat_delay 250 
+}
+# touchpad laptop
+input type:touchpad {
+    dwt enabled
+    tap enabled
+    tap_button_map lrm
+}
+
+### Autostart
+output * bg $background fill
+# exec swayidle -w \
+#      timeout 300 'swaylock -f -i $background_lockscreen' \
+#      timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#      before-sleep 'swaylock -f -c 000000'
+# exec /usr/lib/geoclue-2.0/demos/agent
+exec $HOME/.config/sway/scripts/inactive-windows-transparency.py
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Arc-Dark'
+    gsettings set $gnome-schema icon-theme 'Papirus'
+}
+# SYSTEM AUTOEXECS
+exec blueman-applet
+exec nm-applet --indicator
+exec autotiling
+# PERSONAL AUTOEXECS
+exec ferdium
+exec thunderbird
+exec brave
+exec protonvpn-app
+
+### Key bindings
+bindsym $mod+Return exec $term
+bindsym $mod+q kill
+bindsym $mod+p exec wofi --show
+bindsym $mod+g exec nautilus
+bindsym $mod+b exec blueman-manager
+floating_modifier $mod normal
+bindsym $mod+Shift+c reload
+# lockscreen
+bindsym $mod+Ctrl+l exec swaylock
+# Exit sway (logs you out of your Wayland session)
+bindsym $mod+x exec nwg-bar -t bar.json
+# sound bindings
+bindsym XF86AudioRaiseVolume exec pamixer -i 1
+bindsym XF86AudioLowerVolume exec pamixer -d 1
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindcode 248 exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym Shift+XF86AudioRaiseVolume exec pamixer --default-source -i 1
+bindsym Shift+XF86AudioLowerVolume exec pamixer --default-source -d 1
+# brightness bindings
+bindsym XF86MonBrightnessDown exec brightnessctl -q set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl -q set +5%
+# printscreen bindings
+bindsym Print exec $HOME/.config/sway/scripts/grimshot.sh save output
+bindsym Shift+Print exec $HOME/.config/sway/scripts/grimshot.sh save active
+bindsym Ctrl+Print exec $HOME/.config/sway/scripts/grimshot.sh save area
+# Move your focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+# Or use $mod+[up|down|left|right]
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+# Ditto, with arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+########################################################## shortcut in case of glove80
+# Switch to workspace
+bindsym $mod+a workspace number 1
+bindsym $mod+o workspace number 2
+bindsym $mod+e workspace number 3
+bindsym $mod+u workspace number 4
+bindsym $mod+i workspace number 5
+bindsym $mod+d workspace number 6
+bindsym $mod+h workspace number 7
+bindsym $mod+t workspace number 8
+bindsym $mod+n workspace number 9
+bindsym $mod+s workspace number 10
+# Move focused container to workspace
+bindsym $mod+Shift+a move container to workspace number 1
+bindsym $mod+Shift+o move container to workspace number 2
+bindsym $mod+Shift+e move container to workspace number 3
+bindsym $mod+Shift+u move container to workspace number 4
+bindsym $mod+Shift+i move container to workspace number 5
+bindsym $mod+Shift+d move container to workspace number 6
+bindsym $mod+Shift+h move container to workspace number 7
+bindsym $mod+Shift+t move container to workspace number 8
+bindsym $mod+Shift+n move container to workspace number 9
+bindsym $mod+Shift+s move container to workspace number 10
+
+############################################################## shortcut movements in case of laptop
+bindsym $mod+ampersand workspace number 1
+bindsym $mod+eacute workspace number 2
+bindsym $mod+quotedbl workspace number 3
+bindsym $mod+apostrophe workspace number 4
+bindsym $mod+parenleft workspace number 5
+bindsym $mod+section workspace number 6
+bindsym $mod+egrave workspace number 7
+bindsym $mod+exclam workspace number 8
+bindsym $mod+ccedilla workspace number 9
+bindsym $mod+agrave workspace number 10
+# Move focused container to workspace
+bindsym $mod+1 move container to workspace number 1
+bindsym $mod+2 move container to workspace number 2
+bindsym $mod+3 move container to workspace number 3
+bindsym $mod+4 move container to workspace number 4
+bindsym $mod+5 move container to workspace number 5
+bindsym $mod+6 move container to workspace number 6
+bindsym $mod+7 move container to workspace number 7
+bindsym $mod+8 move container to workspace number 8
+bindsym $mod+9 move container to workspace number 9
+bindsym $mod+0 move container to workspace number 10
+
+bindsym $mod+f fullscreen
+
+### Rules
+# Some default floating windows
+for_window [app_id="blueman-manager"] floating enable, resize set width 680 height 400, move position center
+for_window [app_id="pavucontrol"] floating enable, resize set width 680 height 400, move position center
+for_window [app_id="nm-connection-editor"] floating enable, move position center
+for_window [app_id="gnome-calculator"] floating enable, move center
+for_window [app_id="megasync"] floating enable, move center
+# no clue what this does
+for_window [class="^.*"] inhibit_idle fullscreen
+for_window [app_id="^.*"] inhibit_idle fullscreen
+
+# Status Bar (man 5 sway-bar)
+bar {
+    swaybar_command waybar
+}
+
+# include extra config
+include /etc/sway/config.d/*
