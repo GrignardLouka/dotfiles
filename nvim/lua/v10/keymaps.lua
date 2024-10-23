@@ -1,4 +1,5 @@
 -- [[ Basic Keymaps ]]
+vim.keymap.set("n", ";", ":", { desc = "open cmd" })
 --  See `:help vim.keymap.set()`
 vim.keymap.set("n", "t", "l")
 

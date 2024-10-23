@@ -1,84 +1,94 @@
 -- ~/nvim/lua/v10/plugins/autocomplete.lua
 
 return {
-	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
-	dependencies = {
-		"hrsh7th/cmp-buffer", -- source for text in buffer
-		"hrsh7th/cmp-path", -- source for file system paths
-		{
-			"L3MON4D3/LuaSnip",
-			version = "v2.*",
-			build = "make install_jsregexp",
-		},
-		"saadparwaiz1/cmp_luasnip",
-		"rafamadriz/friendly-snippets",
-		"onsails/lspkind.nvim", -- vs-code like pictograms
-		"hrsh7th/cmp-nvim-lsp",
-	},
-	config = function()
-		local cmp = require("cmp")
-		local luasnip = require("luasnip")
+	-- snippets
 
-		-- Somewhere in your Neovim startup, e.g. init.lua
-		luasnip.config.set_config({ -- Setting LuaSnip config
-			enable_autosnippets = true,
-		})
+	-- autocomplete
+	{ -- hrsh7th/nvim-cmp
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
+		dependencies = {
 
-		-- require("luasnip.loaders.from_vscode").lazy_load()
-		-- require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/snippets" } })
-		require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
-		vim.keymap.set({ "i", "s" }, "<Tab>", function()
-			luasnip.jump(1)
-		end, { silent = true })
-		vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
-			luasnip.jump(-1)
-		end, { silent = true })
+			{ -- L3MON4D3/LuaSnip
+				"L3MON4D3/LuaSnip",
+				version = "v2.*",
+				build = "make install_jsregexp",
 
-		cmp.setup({
-			snippet = {
-				expand = function(args)
-					luasnip.lsp_expand(args.body)
+				dependancies = "rafamadriz/friendly-snippets",
+
+				config = function()
+					-- config
+					require("luasnip").config.set_config({
+						updateevents = "TextChanged, TextChangedI",
+						enable_autosnippets = true,
+					})
+
+					-- load snippets
+					require("luasnip.loaders.from_vscode").lazy_load()
+					require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
 				end,
 			},
+			{ -- windwp/nvim-autopairs
+				"windwp/nvim-autopairs",
+				event = "InsertEnter",
+				config = function()
+					-- setup
+					require("nvim-autopairs").setup({
+						disable_filetype = { "TelescopePrompt", "vim" },
+						enable_check_bracket_line = false,
+					})
 
-			mapping = cmp.mapping.preset.insert({
-				["<C-d>"] = cmp.mapping.scroll_docs(-4),
-				["<C-f>"] = cmp.mapping.scroll_docs(4),
-				["<C-Space>"] = cmp.mapping.complete(),
-				["<C-e>"] = cmp.mapping.close(),
-				["<CR>"] = cmp.mapping.confirm({
-					behavior = cmp.ConfirmBehavior.Replace,
-					select = true,
+					-- config
+					local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+					require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+				end,
+			},
+			"hrsh7th/cmp-buffer", -- source for text in buffer
+			"hrsh7th/cmp-path", -- source for file system paths
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lua",
+			"micangl/cmp-vimtex",
+			"saadparwaiz1/cmp_luasnip",
+			"onsails/lspkind.nvim", -- vs-code like pictograms
+		},
+		config = function()
+			local cmp = require("cmp")
+			local luasnip = require("luasnip")
+
+			cmp.setup({
+				snippet = {
+					expand = function(args)
+						luasnip.lsp_expand(args.body)
+					end,
+				},
+
+				mapping = cmp.mapping.preset.insert({
+					["<C-d>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-e>"] = cmp.mapping.close(),
+					["<Tab>"] = cmp.mapping.confirm({
+						behavior = cmp.ConfirmBehavior.Replace,
+						select = true,
+					}),
 				}),
-			}),
-			["<Tab>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_next_item()
-				elseif luasnip.expand_or_locally_jumpable() then
-					luasnip.expand_or_jump()
-				end
-			end, { "i", "s" }),
-			["<S-Tab>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_prev_item()
-				elseif luasnip.locally_jumpable(-1) then
-					luasnip.jump(-1)
-				else
-					fallback()
-				end
-			end, { "i", "s" }),
-			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
-				{ name = "buffer" },
-				{ name = "path" },
-			}),
-		})
 
-		vim.cmd([[
-		    set completeopt=menuone,noinsert,noselect
-		    highlight! default link CmpItemKind CmpItemMenuDefault
-		  ]])
-	end,
+				sources = cmp.config.sources({ -- top ones are shown first
+					{ name = "luasnip" },
+					{ name = "nvim_lua" },
+					{ name = "nvim_lsp" },
+					{ name = "vimtex" },
+					{ name = "buffer" },
+					{ name = "path" },
+				}),
+			})
+
+			vim.cmd([[
+			    set completeopt=menuone,noinsert,noselect
+			    highlight! default link CmpItemKind CmpItemMenuDefault
+			  ]])
+		end,
+	},
+
+	-- automatically complete pairs
 }

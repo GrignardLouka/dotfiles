@@ -5,9 +5,6 @@ return {
 
 	event = { "BufReadPre", "BufNewFile" },
 	build = ":TSUpdate",
-	dependencies = {
-		"windwp/nvim-ts-autotag",
-	},
 	config = function()
 		local treesitter = require("nvim-treesitter.configs")
 
@@ -25,11 +22,7 @@ return {
 				-- disable = { "latex" },
 			},
 			-- indentation
-			indent = { enable = true },
-			-- autotag
-
-			-- hmtl auto change tag
-			autotag = { enable = true },
+			-- indent = { enable = true },
 
 			ensure_installed = {
 				"json",
@@ -52,30 +45,18 @@ return {
 				"python",
 				"diff",
 				"query",
-				"latex",
+				-- "latex",
 			},
 
-			-- incremental_selection = {
-			-- 	enable = true,
-			-- 	keymaps = {
-			-- 		init_selection = "<C-space>",
-			-- 		node_incremental = "<C-space>",
-			-- 		scope_incremental = false,
-			-- 		node_decremental = "<bs>",
-			-- 	},
-			-- },
-
-			-- rainbow = {
-			-- 	enable = true,
-			-- 	disable = { "html" },
-			-- 	extended_mode = false,
-			-- 	max_file_lines = nil,
-			-- },
-			--
-			-- context_commentstring = {
-			-- 	enable = true,
-			-- 	enable_autocmd = false,
-			-- },
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					init_selection = "gn", -- set to `false` to disable one of the mappings
+					node_incremental = "grn",
+					scope_incremental = "grc",
+					node_decremental = "grm",
+				},
+			},
 		})
 	end,
 }
