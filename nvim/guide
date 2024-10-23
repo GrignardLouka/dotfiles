@@ -1,0 +1,25 @@
+MOTIONS
+
+...
+
+PLUGINS
+    TELESCOPE:  <leader>s...
+                <leader>/
+                <leader><leader>
+
+    CMP:        <C-d>,<C-f> docs down or up
+                <C-space> complete
+                <C-e> close
+                <Tab> confirm
+
+    LSP:        g...
+                <leader>D, d, w, r, c, t
+
+    FORMATTER:  <leader>f format
+
+    TREESITTER: <gn> select node
+                grn, grc, grm
+
+    TROUBLE:    t... 
+
+    ZENMODE: <leader>zz, <leader>zZ
