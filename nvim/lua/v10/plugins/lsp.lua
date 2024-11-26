@@ -1,6 +1,5 @@
 -- ~/nvim/lua/v10/plugins/lsp.lua
-return {
-	-- lsp configuration
+return { -- lsp configuration
 	{ -- neovim/nvim-lspconfig
 
 		-- Main LSP Configuration
@@ -112,14 +111,20 @@ return {
 				},
 
 				bashls = {},
+				texlab = {},
 				ltex = {
 					settings = {
 						ltex = { language = "en-US", dictionary = { ["en-US"] = dict } },
 					},
 				},
-				dockerls = {},
+				rust_analyzer = {},
+				-- dockerls = {},
 				jsonls = {},
 			}
+
+			root_dir = function(fname)
+				return vim.loop.cwd()
+			end
 
 			require("mason").setup()
 

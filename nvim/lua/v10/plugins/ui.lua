@@ -1,6 +1,4 @@
--- ~/.config/nvim/lua/v10/plugins/ui.lua
-return {
-	-- theme
+return { -- theme
 	{ -- tiagovla/tokyodark.nvim
 		"tiagovla/tokyodark.nvim",
 		lazy = false,
@@ -184,6 +182,24 @@ return {
 				{ "<leader>t", group = "[T]rouble" },
 				{ "<leader>l", group = "[L]aTeX" },
 				{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+				{ "cs", group = "Change Surround" },
+				{ "ci", group = "Change Inside" },
+				{ "<leader>z", group = "[Z]en Mode" },
+				{ "<leader>r", group = "[R]ename" },
+				{ "[", group = "prev" },
+				{ "]", group = "next" },
+				{ "g", group = "goto" },
+				{ "z", group = "Fold and Spelling" },
+				{ "<leader>", group = "Leader" },
+			},
+		},
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = true })
+				end,
+				desc = "Which Key Show All Posibilities",
 			},
 		},
 	},
@@ -195,29 +211,60 @@ return {
 			vim.keymap.set("n", "<leader>zz", function()
 				require("zen-mode").setup({
 					window = {
-						width = 120,
-						options = {},
+						width = 100,
+						options = {
+							signcolumn = "yes",
+							number = true,
+							relativenumber = true,
+							cursorline = false,
+							colorcolumn = "0",
+							wrap = true,
+							-- foldcolumn = "0",
+							-- list = false,
+						},
 					},
 				})
 				require("zen-mode").toggle()
 				vim.wo.wrap = false
-				vim.wo.number = true
-				vim.wo.rnu = true
-			end)
+			end, { desc = "Zen Mode: Toggle with line numbers" })
 
 			vim.keymap.set("n", "<leader>zZ", function()
 				require("zen-mode").setup({
 					window = {
 						width = 120,
-						options = {},
+						options = {
+							signcolumn = "no",
+							number = false,
+							relativenumber = false,
+							cursorline = false,
+							colorcolumn = "0",
+							-- foldcolumn = "0",
+							list = false,
+							wrap = true,
+						},
 					},
 				})
 				require("zen-mode").toggle()
-				vim.wo.wrap = false
-				vim.wo.number = false
-				vim.wo.rnu = false
-				vim.opt.colorcolumn = "0"
-			end)
+			end, { desc = "Zen Mode: Toggle without line numbers" })
+
+			vim.keymap.set("n", "<leader>zr", function()
+				require("zen-mode").setup({
+					window = {
+						width = 100,
+						options = {
+							signcolumn = "no",
+							number = false,
+							relativenumber = false,
+							cursorline = false,
+							colorcolumn = "0",
+							foldcolumn = "0",
+							list = false,
+							wrap = true,
+						},
+					},
+				})
+				require("zen-mode").toggle()
+			end, { desc = "Zen Mode: Reader mode" })
 		end,
 	},
 
@@ -230,33 +277,42 @@ return {
 			{
 				"<leader>ta",
 				"<cmd>Trouble diagnostics toggle<cr>",
-				desc = "Diagnostics (Trouble)",
+				desc = "Trouble: Diagnostics",
 			},
 			{
 				"<leader>tc",
 				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-				desc = "Buffer Diagnostics (Trouble)",
+				desc = "Trouble: Buffer Diagnostics",
 			},
 			{
 				"<leader>ts",
 				"<cmd>Trouble symbols toggle focus=false<cr>",
-				desc = "Symbols (Trouble)",
+				desc = "Trouble: Symbols",
 			},
 			{
 				"<leader>tl",
 				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-				desc = "LSP Definitions / references / ... (Trouble)",
+				desc = "Trouble: LSP Definitions / references / ...",
 			},
 			{
 				"<leader>tL",
 				"<cmd>Trouble loclist toggle<cr>",
-				desc = "Location List (Trouble)",
+				desc = "Trouble: Location List",
 			},
 			{
 				"<leader>tQ",
 				"<cmd>Trouble qflist toggle<cr>",
-				desc = "Quickfix List (Trouble)",
+				desc = "Trouble: Quickfix List",
 			},
 		},
+	},
+
+	-- undo tree
+	{
+		"mbbill/undotree",
+
+		config = function()
+			vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+		end,
 	},
 }

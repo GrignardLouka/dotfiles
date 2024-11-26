@@ -57,15 +57,7 @@ mode "present" {
 }
 bindsym $mod+shift+p mode "present"
 
-### INPUTS (swaymsg -t get_inputs, man 5 sway_input)
-# Laptop Keyboard
-input "1:1:AT_Translated_Set_2_keyboard" {
-    xkb_layout be
-    xkb_numlock enable
-    repeat_rate 75
-    repeat_delay 250
-}
-# glove80
+### INPUTS (swaymsg -t get_inputs, man 5 sway_input# glove80
 input "5824:10203:MoErgo_Glove80_Left_Keyboard" {
     xkb_layout custom
     xkb_numlock enable
@@ -73,12 +65,24 @@ input "5824:10203:MoErgo_Glove80_Left_Keyboard" {
     repeat_rate  75
     repeat_delay 250 
 }
+# Laptop Keyboard
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout be
+    # xkb_layout custom
+    # xkb_variant dvp
+    xkb_numlock enable
+    repeat_rate 75
+    repeat_delay 250
+}
+
 # touchpad laptop
 input type:touchpad {
     dwt enabled
     tap enabled
     tap_button_map lrm
 }
+
+
 
 ### Autostart
 output * bg $background fill
@@ -113,6 +117,7 @@ floating_modifier $mod normal
 bindsym $mod+Shift+c reload
 # lockscreen
 bindsym $mod+Ctrl+l exec swaylock
+bindsym $mod+Ctrl+s exec swaylock; exec systemctl suspend
 # Exit sway (logs you out of your Wayland session)
 bindsym $mod+x exec nwg-bar -t bar.json
 # sound bindings

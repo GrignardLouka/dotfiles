@@ -26,37 +26,37 @@ return {
 
 			ensure_installed = {
 				"json",
-				"javascript",
-				"typescript",
-				"tsx",
-				"yaml",
-				"html",
-				"css",
+				-- "javascript",
+				-- "typescript",
+				-- "tsx",
+				-- "yaml",
+				-- "html",
+				-- "css",
 				"markdown",
 				"markdown_inline",
 				"bash",
 				"lua",
 				"luadoc",
 				"vim",
-				"dockerfile",
+				-- "dockerfile",
 				"gitignore",
 				"c",
 				"rust",
 				"python",
-				"diff",
-				"query",
+				-- "diff",
+				-- "query",
 				-- "latex",
 			},
 
-			incremental_selection = {
-				enable = true,
-				keymaps = {
-					init_selection = "gn", -- set to `false` to disable one of the mappings
-					node_incremental = "grn",
-					scope_incremental = "grc",
-					node_decremental = "grm",
-				},
-			},
+			-- incremental_selection = {
+			-- 	enable = true,
+			-- 	keymaps = {
+			-- 		init_selection = "gn", -- set to `false` to disable one of the mappings
+			-- 		node_incremental = "grn",
+			-- 		scope_incremental = "grc",
+			-- 		node_decremental = "grm",
+			-- 	},
+			-- },
 		})
 	end,
 }

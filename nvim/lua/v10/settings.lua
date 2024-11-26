@@ -17,6 +17,8 @@ opt.inccommand = "split" -- Preview substitutions live, as you type!
 g.have_nerd_font = true -- use nerdfont
 opt.spellfile = vim.fn.stdpath("config") .. "/spell/en-US.utf-8.add" -- location of spelling file
 
+opt.colorcolumn = "80"
+
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 vim.schedule(function()
@@ -79,6 +81,13 @@ opt.foldtext = ""
 opt.foldlevelstart = 1
 opt.foldnestmax = 5
 
--- oldschool vim commands
+---------------------------- oldschool vim commands ---------------------------
+-- prevent automatically adding comments to new lines on <Enter>
+vim.cmd("autocmd BufEnter * set formatoptions-=cro")
+vim.cmd("autocmd BufEnter * setlocal formatoptions-=cro")
+
+-- go to next line when l is pressed at end of line
 vim.cmd("set whichwrap+=<,>,[,],h,l") -- make motions move to othe	r lines
+
+-- treat words with dash as 1 word
 vim.cmd("set iskeyword+=-") -- words seperated by a dash are treated as 1 word

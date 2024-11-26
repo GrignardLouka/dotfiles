@@ -10,7 +10,6 @@ local d = ls.dynamic_node
 local r = ls.restore_node
 
 return {
-	s("snip_test", t("loaded!!")),
 	s("item", {
 		t("\\begin{itemize}"),
 		t("\\item"),

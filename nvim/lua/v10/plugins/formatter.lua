@@ -30,7 +30,7 @@ return {
 					async = true,
 					timeout_ms = 500,
 				})
-			end, { desc = "[F]ormat buffer" })
+			end, { desc = "Conform: [F]ormat Buffer" })
 		end,
 	},
 

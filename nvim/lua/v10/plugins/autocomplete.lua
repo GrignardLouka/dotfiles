@@ -1,6 +1,18 @@
 -- ~/nvim/lua/v10/plugins/autocomplete.lua
 
 return {
+	-- copilot
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("copilot").setup({
+	-- 			suggestion = { enabled = false },
+	-- 			panel = { enabled = false },
+	-- 		})
+	-- 	end,
+	-- },
 	-- snippets
 
 	-- autocomplete
@@ -50,10 +62,13 @@ return {
 			"micangl/cmp-vimtex",
 			"saadparwaiz1/cmp_luasnip",
 			"onsails/lspkind.nvim", -- vs-code like pictograms
+			-- "zbirenbaum/copilot-cmp",
 		},
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
+
+			-- require("copilot_cmp").setup()
 
 			cmp.setup({
 				snippet = {
@@ -75,6 +90,7 @@ return {
 
 				sources = cmp.config.sources({ -- top ones are shown first
 					{ name = "luasnip" },
+					-- { name = "copilot" },
 					{ name = "nvim_lua" },
 					{ name = "nvim_lsp" },
 					{ name = "vimtex" },

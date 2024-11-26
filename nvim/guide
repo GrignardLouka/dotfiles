@@ -1,4 +1,25 @@
 MOTIONS
+hjkl (left down up right)
+wbe ge/WBE gE (start of next word, start of previous word, end of next word, end of previous word)
+0/$ (start of line end of line)
+% (matching brackets)
+gg/G (start/end of document)
+fx/Fx (jump to next occurence of x, jump to previous occurance of x)
+n/N (repeat previous search, repeat previous search backwards)
+zz/zt/zb (center around current line, top around current line, bottom around current line)
+}/{ (jump to next paragraph, jump to previous paragraph)
+)/( (jump to next indentation, jump to previous indentation)
+
+REPLACE PREVIOUS WITH gp and gi for go paragraph and go indentation
+
+TEXT MODE
+i/a (insert before, insert after)
+I/A (insert start of line, insert end of line)
+o/O (add line below and insert, add line above and insert)
+
+EDIT IN NORMAL MODE
+y/p/d (yank, paste, delete | Can be combined with all motions)
+
 
 ...
 
@@ -23,3 +44,4 @@ PLUGINS
     TROUBLE:    t... 
 
     ZENMODE: <leader>zz, <leader>zZ
+
