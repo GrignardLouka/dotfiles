@@ -23,8 +23,10 @@ set $background_lockscreen ~/.config/sway/wallpapers/background_lockscreen.jpg
 # output HDMI-A-1 pos 0 0 res 1280x800
 
 # DEFAULT CONFIG
+# output eDP-1 pos 0 1080 res 1920x1080
 output eDP-1 pos 0 1440 res 1920x1080
 output HDMI-A-1 pos 0 0 res 2560x1440
+# output HDMI-A-1 pos 0 0 res 1920x1080
 
 
 # INCASE OF DUPLICATE, UNCOMMENT THE LINES BELOW

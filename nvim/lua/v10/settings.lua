@@ -15,7 +15,7 @@ opt.hlsearch = true -- show search upon typing
 opt.inccommand = "split" -- Preview substitutions live, as you type!
 
 g.have_nerd_font = true -- use nerdfont
-opt.spellfile = vim.fn.stdpath("config") .. "/spell/en-US.utf-8.add" -- location of spelling file
+opt.spellfile = vim.fn.stdpath("config") .. "/spell/en-UK.utf-8.add" -- location of spelling file
 
 opt.colorcolumn = "80"
 

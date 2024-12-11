@@ -91,7 +91,7 @@ return { -- lsp configuration
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-			local path_spelling = vim.fn.stdpath("config") .. "/spell/en-US.utf-8.add"
+			local path_spelling = vim.fn.stdpath("config") .. "/spell/en-UK.utf-8.add"
 			local dict = {}
 			for word in io.open(path_spelling, "r"):lines() do
 				table.insert(dict, word)
@@ -114,7 +114,7 @@ return { -- lsp configuration
 				texlab = {},
 				ltex = {
 					settings = {
-						ltex = { language = "en-US", dictionary = { ["en-US"] = dict } },
+						ltex = { language = "en-UK", dictionary = { ["en-UK"] = dict } },
 					},
 				},
 				rust_analyzer = {},

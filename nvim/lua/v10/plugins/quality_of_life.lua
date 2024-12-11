@@ -1,6 +1,11 @@
 -- ~/.config/nvim/lua/v10/plugins/quality_of_life.lua
 return {
 
+	-- nvim suda
+	{
+		"lambdalisue/vim-suda",
+	},
+
 	-- nvim surround
 	{
 		"kylechui/nvim-surround",
